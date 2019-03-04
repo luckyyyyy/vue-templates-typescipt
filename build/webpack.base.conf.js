@@ -15,7 +15,7 @@ const utils = require('./utils');
 const loader = require('./utils/loader');
 const config = require('../config');
 const ts = require('typescript');
-console.log('Typescript Version: ' + ts.version );
+console.log('TypeScript Version: ' + ts.version );
 
 const webpackConfig = {
   entry: {

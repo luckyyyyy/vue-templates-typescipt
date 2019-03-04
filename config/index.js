@@ -19,8 +19,11 @@ module.exports = {
     PUBLIC_PATH: '/',
     BUILD_TIME: moment().format('YMMDDHHmm'),
   },
+  host: '0.0.0.0',
   port: 8080,
-  autoOpenBrowser: false,
+  autoOpenBrowser: true,
+  errorOverlay: true,
+  poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
   assetsRoot: path.resolve(__dirname, '../dist'),
   assetsSubDirectory: 'static',
   assetsPublicPath: '/',
