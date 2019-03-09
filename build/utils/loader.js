@@ -15,20 +15,38 @@ const styleLoaders = (extract) => {
     'resolve url': true,
     import: [utils.fullPath('src/global/cube-theme')],
   };
-  // 没必要其实 最多加个 sourceMap 压缩的事情给别的插件负责
-  // const cssOptions = {
-  //   minimize: isProd,
-  //   sourceMap: options.sourceMap,
-  // }
+
+  const cssModules = {
+    modules: true,
+    localIdentName: '[path][name]__[local]--[hash:base64:5]',
+  }
+
   const map = {
     scss: 'sass-loader',
     styl: { loader: 'stylus-loader', options: stylusOptions },
     stylus: { loader: 'stylus-loader', options: stylusOptions },
   };
-  return ['css', 'scss', 'styl', 'stylus'].map((extension) => {
+
+  function setCssLoader(use) {
+    const a = use;
+    return a[1] = { loader: 'css-loader', options: cssModules };
+  }
+  const cssModulesRules = ['css', 'scss', 'styl', 'stylus'].map((extension) => {
     const devLoader = extract ? MiniCssExtractPlugin.loader : 'vue-style-loader';
-    const rule = {
+    let rule = {
+      test: new RegExp(`\\.module.${extension}$`),
+      use: [devLoader, { loader: 'css-loader', options: cssModules }, 'postcss-loader'],
+    };
+    if (map[extension]) {
+      rule.use.push(map[extension]);
+    }
+    return rule;
+  });
+  const cssRules = ['css', 'scss', 'styl', 'stylus'].map((extension) => {
+    const devLoader = extract ? MiniCssExtractPlugin.loader : 'vue-style-loader';
+    let rule = {
       test: new RegExp(`\\.${extension}$`),
+      exclude: new RegExp(`\\.module.${extension}$`),
       use: [devLoader, 'css-loader', 'postcss-loader'],
     };
     if (map[extension]) {
@@ -36,6 +54,7 @@ const styleLoaders = (extract) => {
     }
     return rule;
   });
+  return cssRules.concat(...cssModulesRules)
 };
 
 const vueLoaders = () => [{

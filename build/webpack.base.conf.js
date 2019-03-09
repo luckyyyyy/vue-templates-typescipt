@@ -13,7 +13,8 @@ const FilterWarningsPlugin = require('webpack-filter-warnings-plugin'); // 连�
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const utils = require('./utils');
 const loader = require('./utils/loader');
-const config = require('../config');
+const config = require('./config');
+const splitChunks = require('./config/splitChunks');
 const ts = require('typescript');
 console.log('TypeScript Version: ' + ts.version );
 
@@ -37,42 +38,7 @@ const webpackConfig = {
     },
     // https://github.com/webpack-contrib/mini-css-extract-plugin/issues/113
     // 无解
-    splitChunks: {
-      // chunks: 'initial', // initial all async
-      cacheGroups: {
-        styles: {
-          test: m => m.constructor.name === 'CssModule',
-          name: 'commons',
-          minChunks: 2,
-          chunks: 'all',
-          reuseExistingChunk: true,
-          // enforce: true,
-        },
-        vue: {
-          filename: utils.assetsPath('js/vue-family-bundle.js'),
-          name: 'vue-family-bundle',
-          test: /[\\/]node_modules[\\/](vue|vue-router|vuex|vuex-router-sync)[\\/]/,
-          chunks: 'initial',
-        },
-        route: {
-          filename: utils.assetsPath('js/route.[hash:24].js'),
-          name: 'route',
-          test: /[\\/]src[\\/](router)[\\/]/,
-          chunks: 'initial',
-        },
-        store: {
-          filename: utils.assetsPath('js/store.[hash:24].js'),
-          name: 'store',
-          test: /[\\/]src[\\/](store)[\\/]/,
-          chunks: 'initial',
-        },
-        default: {
-          minChunks: 2,
-          priority: -20,
-          reuseExistingChunk: true,
-        },
-      },
-    },
+    splitChunks,
   },
   resolve: {
     extensions: ['.js', '.ts', '.tsx', '.vue', '.json'],
@@ -88,6 +54,7 @@ const webpackConfig = {
   },
   module: {
     rules: [
+      ...loader.styleLoaders(!utils.isDevelop),
       ...loader.vueLoaders(),
       {
         test: /\.(js|tsx?)$/,
@@ -96,13 +63,14 @@ const webpackConfig = {
           utils.fullPath('config'),
           utils.fullPath('src'),
           utils.fullPath('test'),
-          utils.fullPath('node_modules/cube-ui'),
         ],
       },
       {
         test: /\.tsx?$/, // 保障 .vue 文件中 lang=ts
-        loader: 'ts-loader',
-        options: { appendTsxSuffixTo: [/\.vue$/] }
+        use: {
+          loader: 'ts-loader',
+          options: { appendTsxSuffixTo: [/\.vue$/] }
+        }
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -116,6 +84,9 @@ const webpackConfig = {
           },
           {
             loader: 'image-webpack-loader',
+            options: {
+              disable: utils.isDevelop,
+            },
           },
         ],
       },
@@ -167,6 +138,26 @@ const webpackConfig = {
       inject: true,
       // favicon: utils.fullPath('src/assets/favicon.ico'),
     }),
+    // Silence mini-css-extract-plugin generating lots of warnings for CSS ordering.
+    // We use CSS modules that should not care for the order of CSS imports, so we
+    // should be safe to ignore these.
+    //
+    // See: https://github.com/webpack-contrib/mini-css-extract-plugin/issues/250
+    new FilterWarningsPlugin({
+      exclude: /mini-css-extract-plugin[^]*Conflicting order between:/,
+    }),
+  ],
+};
+
+if (config.useEsLint) {
+      // ...loader.eslintLoaders({
+      //   cache: true,
+      //   emitWarning: true,
+      //   failOnError: false,
+      // }),
+}
+
+if (config.useStyleLint) {
     // new StylelintBarePlugin({
     //   configFile: '.stylelintrc.js',
     //   files: [
@@ -183,15 +174,6 @@ const webpackConfig = {
     //   emitErrors: true,
     //   failOnError: true,
     // }),
-    // Silence mini-css-extract-plugin generating lots of warnings for CSS ordering.
-    // We use CSS modules that should not care for the order of CSS imports, so we
-    // should be safe to ignore these.
-    //
-    // See: https://github.com/webpack-contrib/mini-css-extract-plugin/issues/250
-    new FilterWarningsPlugin({
-      exclude: /mini-css-extract-plugin[^]*Conflicting order between:/,
-    }),
-  ],
-};
+}
 
 module.exports = webpackConfig;
