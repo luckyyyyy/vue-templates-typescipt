@@ -35,7 +35,7 @@ const styleLoaders = (extract) => {
     const devLoader = extract ? MiniCssExtractPlugin.loader : 'vue-style-loader';
     let rule = {
       test: new RegExp(`\\.module.${extension}$`),
-      use: [devLoader, { loader: 'css-loader', options: cssModules }, 'postcss-loader'],
+      use: [devLoader, 'cache-loader', { loader: 'css-loader', options: cssModules }, 'postcss-loader'],
     };
     if (map[extension]) {
       rule.use.push(map[extension]);
@@ -47,7 +47,7 @@ const styleLoaders = (extract) => {
     let rule = {
       test: new RegExp(`\\.${extension}$`),
       exclude: new RegExp(`\\.module.${extension}$`),
-      use: [devLoader, 'css-loader', 'postcss-loader'],
+      use: [devLoader, 'cache-loader', 'css-loader', 'postcss-loader'],
     };
     if (map[extension]) {
       rule.use.push(map[extension]);
@@ -59,19 +59,86 @@ const styleLoaders = (extract) => {
 
 const vueLoaders = () => [{
   test: /\.vue$/,
-  loader: 'vue-loader',
-  options: { // https://github.com/vuejs/vue-loader/blob/62a9155d00212f17e24c1ae05445c156b31e2fbd/docs/options.md
-    compilerOptions: {
-      // preserveWhitespace: false, // do not enable, will cause some bug when render list
-    },
-    transformAssetUrls: {
-      video: ['src', 'poster'],
-      source: 'src',
-      img: 'src',
-      image: 'xlink:href',
-    },
-  },
+  use: [
+    'cache-loader',
+    {
+      loader: 'vue-loader',
+      options: { // https://github.com/vuejs/vue-loader/blob/62a9155d00212f17e24c1ae05445c156b31e2fbd/docs/options.md
+        compilerOptions: {
+          // preserveWhitespace: false, // do not enable, will cause some bug when render list
+        },
+        transformAssetUrls: {
+          video: ['src', 'poster'],
+          source: 'src',
+          img: 'src',
+          image: 'xlink:href',
+        },
+      },
+    }
+  ]
 }];
+
+const scriptLoaders = () => {
+  const includes = [
+    utils.fullPath('config'),
+    utils.fullPath('src'),
+    utils.fullPath('test'),
+  ];
+  return [
+    {
+      test: /\.m?jsx?$/,
+      use: ['cache-loader', 'babel-loader'],
+      include: includes,
+    },
+    {
+      test: /\.ts$/,
+      include: includes,
+      use: [
+        'cache-loader',
+        'babel-loader',
+        {
+          loader: 'ts-loader',
+          options: {
+            appendTsSuffixTo: [/\.vue$/],
+          },
+        },
+      ],
+    },
+    {
+      test: /\.tsx$/,
+      include: includes,
+      use: [
+        'cache-loader',
+        'babel-loader',
+        {
+          loader: 'ts-loader',
+          options: {
+            appendTsxSuffixTo: [/\.vue$/],
+          },
+        },
+      ],
+    },
+    // {
+    //   test: /\.(js|tsx?)$/,
+    //   loader: 'babel-loader',
+    //   include: [
+    //     utils.fullPath('config'),
+    //     utils.fullPath('src'),
+    //     utils.fullPath('test'),
+    //     utils.fullPath('node_modules/cube-ui'),
+    //   ],
+    // },
+    // {
+    //   test: /\.tsx?$/, // 保障 .vue 文件中 lang=ts
+    //   loader: 'ts-loader',
+    //   options: {
+    //     appendTsSuffixTo: [/\.vue$/],
+    //     appendTsxSuffixTo: [/\.vue$/],
+    //   },
+    // },
+  ];
+};
+
 
 const eslintLoaders = options => [{
   test: /\.(js|vue)$/,
@@ -91,3 +158,4 @@ const eslintLoaders = options => [{
 exports.styleLoaders = styleLoaders;
 exports.vueLoaders = vueLoaders;
 exports.eslintLoaders = eslintLoaders;
+exports.scriptLoaders = scriptLoaders;

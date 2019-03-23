@@ -26,6 +26,7 @@ module.exports = {
   host: HOST || config.host,
   port: PORT || config.port,
   open: config.autoOpenBrowser,
+  useLocalIp: true,
   overlay: config.errorOverlay
     ? { warnings: false, errors: true }
     : false,

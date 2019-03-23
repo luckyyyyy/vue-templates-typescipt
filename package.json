@@ -5,8 +5,6 @@
   "author": "William Chan <root@williamchan.me>, Emile Zhai <root@derzh.com>",
   "private": true,
   "scripts": {
-    "start": "yarn run setup && yarn run hot",
-    "setup": "yarn",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --config build/webpack.dev.conf.js",
     "build": "rimraf dist && cross-env NODE_ENV=production webpack --config build/webpack.prod.conf --hide-modules",
     "lint": "eslint --ext .js,.vue --cache --cache-location node_modules/.cache/.eslintcache src",
@@ -40,6 +38,7 @@
     "babel-loader": "^8.0.5",
     "babel-plugin-syntax-jsx": "^6.18.0",
     "babel-plugin-transform-vue-jsx": "^3.7.0",
+    "cache-loader": "^2.0.1",
     "chalk": "^2.4.1",
     "compression-webpack-plugin": "^1.1.11",
     "connect-history-api-fallback": "^1.5.0",

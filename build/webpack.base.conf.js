@@ -41,7 +41,7 @@ const webpackConfig = {
     splitChunks,
   },
   resolve: {
-    extensions: ['.js', '.ts', '.tsx', '.vue', '.json'],
+    extensions: ['.js', 'jsx', '.ts', '.tsx', '.vue', '.json'],
     alias: {
       vue$: 'vue/dist/vue.esm.js',
       '@': utils.fullPath('src'),
@@ -56,22 +56,7 @@ const webpackConfig = {
     rules: [
       ...loader.styleLoaders(!utils.isDevelop),
       ...loader.vueLoaders(),
-      {
-        test: /\.(js|tsx?)$/,
-        loader: 'babel-loader',
-        include: [
-          utils.fullPath('config'),
-          utils.fullPath('src'),
-          utils.fullPath('test'),
-        ],
-      },
-      {
-        test: /\.tsx?$/, // 保障 .vue 文件中 lang=ts
-        use: {
-          loader: 'ts-loader',
-          options: { appendTsxSuffixTo: [/\.vue$/] }
-        }
-      },
+      ...loader.scriptLoaders(),
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         use: [
@@ -149,12 +134,14 @@ const webpackConfig = {
   ],
 };
 
-if (config.useEsLint) {
-      // ...loader.eslintLoaders({
-      //   cache: true,
-      //   emitWarning: true,
-      //   failOnError: false,
-      // }),
+if (config.useEslint) {
+  webpackConfig.module.rules.push(
+    ...loader.eslintLoaders({
+      cache: true,
+      emitWarning: true,
+      failOnError: false,
+    }),
+  )
 }
 
 if (config.useStyleLint) {
