@@ -44,5 +44,11 @@
       "@author   : <<author>> (<<authoremail>>)",
       "@copyright: Copyright (c) 2019 Hangzhou perfma Network Technology Co., Ltd.",
     ]
-  }],
+  }
+],
+"jumpToAliasFile.alias": {
+  "vue$": "vue/dist/vue.esm.js",
+  "@": "/Users/perfma/work/vue-base/src",
+  ":": "/Users/perfma/work/vue-base/static"
+},
 }

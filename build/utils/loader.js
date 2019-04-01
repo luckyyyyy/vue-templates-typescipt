@@ -9,6 +9,13 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const eslintFriendlyFormatter = require('eslint-friendly-formatter');
 const utils = require('./index.js');
 
+const cacheLoader = (path) => {
+  return {
+    loader: 'cache-loader',
+    options: { cacheDirectory: utils.fullPath(`./node_modules/.cache/cache-loader/${path}`) },
+  };
+};
+
 // Generate loaders for standalone style files (outside of .vue)
 const styleLoaders = (extract) => {
   const stylusOptions = {
@@ -35,7 +42,12 @@ const styleLoaders = (extract) => {
     const devLoader = extract ? MiniCssExtractPlugin.loader : 'vue-style-loader';
     let rule = {
       test: new RegExp(`\\.module.${extension}$`),
-      use: [devLoader, 'cache-loader', { loader: 'css-loader', options: cssModules }, 'postcss-loader'],
+      use: [
+        devLoader,
+        cacheLoader('css-loader'),
+        { loader: 'css-loader', options: cssModules },
+        'postcss-loader'
+      ],
     };
     if (map[extension]) {
       rule.use.push(map[extension]);
@@ -47,7 +59,12 @@ const styleLoaders = (extract) => {
     let rule = {
       test: new RegExp(`\\.${extension}$`),
       exclude: new RegExp(`\\.module.${extension}$`),
-      use: [devLoader, 'cache-loader', 'css-loader', 'postcss-loader'],
+      use: [
+        devLoader,
+        cacheLoader('css-loader'),
+        'css-loader',
+        'postcss-loader'
+      ],
     };
     if (map[extension]) {
       rule.use.push(map[extension]);
@@ -60,7 +77,7 @@ const styleLoaders = (extract) => {
 const vueLoaders = () => [{
   test: /\.vue$/,
   use: [
-    'cache-loader',
+    cacheLoader('vue-loader'),
     {
       loader: 'vue-loader',
       options: { // https://github.com/vuejs/vue-loader/blob/62a9155d00212f17e24c1ae05445c156b31e2fbd/docs/options.md
@@ -87,14 +104,14 @@ const scriptLoaders = () => {
   return [
     {
       test: /\.m?jsx?$/,
-      use: ['cache-loader', 'babel-loader'],
+      use: [cacheLoader('babel-loader'), 'babel-loader'],
       include: includes,
     },
     {
       test: /\.ts$/,
       include: includes,
       use: [
-        'cache-loader',
+        cacheLoader('ts-loader'),
         'babel-loader',
         {
           loader: 'ts-loader',
@@ -108,7 +125,7 @@ const scriptLoaders = () => {
       test: /\.tsx$/,
       include: includes,
       use: [
-        'cache-loader',
+        cacheLoader('ts-loader'),
         'babel-loader',
         {
           loader: 'ts-loader',
