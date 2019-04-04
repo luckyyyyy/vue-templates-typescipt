@@ -12,8 +12,7 @@ module.exports = {
     require('@vue/babel-preset-jsx'),
   ],
   plugins: [
-    require('@babel/plugin-syntax-jsx'),
-    require('babel-plugin-transform-vue-jsx'),
+    // require('@babel/plugin-syntax-jsx'),
     require('@babel/plugin-syntax-dynamic-import'),
   ],
 };
