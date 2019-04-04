@@ -8,7 +8,8 @@
 module.exports = {
   presets: [
     require('@babel/preset-env'),
-    require('@babel/preset-typescript')
+    require('@babel/preset-typescript'),
+    require('@vue/babel-preset-jsx'),
   ],
   plugins: [
     require('@babel/plugin-syntax-jsx'),
