@@ -26,7 +26,7 @@ module.exports = {
   assetsRoot: path.resolve(__dirname, '../../dist'),
   assetsSubDirectory: 'static',
   assetsPublicPath: '/',
-  useEslint: false,
+  useEslint: true,
   // Run the build command with an extra argument to
   // View the bundle analyzer report after build finishes:
   // `npm run build --report`

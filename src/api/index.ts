@@ -5,20 +5,53 @@
  * @copyright: Copyright (c) 2019 Hangzhou perfma Network Technology Co., Ltd.
  */
 
-import axios from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 import { MessageBox, Notification } from 'element-ui';
+import { Route } from 'vue-router';
+import { isDevelop } from '@/utils';
 
-const onRequest = (req) => {
-  return req;
+/**
+ * 请求参数配置
+ * @param config
+ */
+const onRequest = (config: AxiosRequestConfig) => {
+  if (config.data) {
+    Object.keys(config.data).forEach((key) => {
+      if (config.data[key] === '' || (key.indexOf('$') === 0)) {
+        delete config.data[key];
+      }
+    });
+  } else {
+    config.data = {};
+  }
+  return config;
 };
-const onRequestError = (err) => {
+
+/**
+ * 请求发出错误
+ * @param config
+ */
+const onRequestError = (err: AxiosError) => {
   return Promise.reject(err);
 };
 
-const onResponse = (res) => {
-  return Promise.resolve(res);
+/**
+ * response 结果
+ * @param config
+ * @return {Promise<AxiosResponse<T>>}
+ */
+const onResponse = <T = any> (res: AxiosResponse): Promise<AxiosResponse<T>> => {
+  if (res.data && res.data.success === true) {
+    return Promise.resolve(res.data);
+  }
+  return Promise.reject(res);
 };
-const onResponseError = (err) => {
+
+/**
+ * 返回错误
+ * @param config
+ */
+const onResponseError = (err: AxiosError) => {
   if (!err.response) {
     // network error
     MessageBox({
@@ -41,32 +74,30 @@ const onResponseError = (err) => {
   } else if (err.response.status >= 500) {
     MessageBox({
       message: '服务器错误，请联系管理员。',
-      title: '服务器错误',
+      title: `服务器错误（${err.response.status}）`,
       type: 'error',
     });
   } else if (err.response.status === 403) {
-    MessageBox({
-      message: err.response.data.errmsg ? err.response.data.errmsg : '您的权限不足，无法执行此操作。',
-      title: '权限不足',
-      type: 'error',
-    }).then(() => {
-      window.location.href = '/login';
-    });
-  } else if (parseInt(err.response.data.errcode, 10) !== err.response.status) {
-    return Promise.reject(err);
-  } else if (err.config.message !== false) {
-    MessageBox({
-      title: `操作失败 (${err.response.data.errcode})`,
-      message: err.response.data.errmsg ? err.response.data.errmsg : '操作失败，请联系管理员。',
-      type: 'error',
-    });
-    if (err.response.data.data) {
-      Notification({
-        type: 'error',
-        title: '发生错误',
-        message: JSON.stringify(err.response.data.data),
-      });
-    }
+    // MessageBox({
+    //   message: err.response.data.errmsg ? err.response.data.errmsg : '您的权限不足，无法执行此操作。',
+    //   title: '权限不足',
+    //   type: 'error',
+    // }).then(() => {
+    //   window.location.href = '/login';
+    // });
+  // } else if (err.config.message !== false) {
+  //   MessageBox({
+  //     title: `操作失败 (${err.response.data.status})`,
+  //     message: err.response.data.message ? err.response.data.message : '操作失败，请联系管理员。',
+  //     type: 'error',
+  //   });
+    // if (err.response.data.data) {
+    //   Notification({
+    //     type: 'error',
+    //     title: '发生错误',
+    //     message: JSON.stringify(err.response.data.data),
+    //   });
+    // }
   }
   return Promise.reject(err);
 };
