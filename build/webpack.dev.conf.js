@@ -29,9 +29,9 @@ const webpackConfig = merge(webpackBaseConfig, {
   ],
 });
 
-utils.getLocalIps().forEach((ip) => {
-  console.log('listen: ' + chalk.green('http://' + ip + ':' + webpackConfig.devServer.port));
-});
+// utils.getLocalIps().forEach((ip) => {
+//   console.log('listen: ' + chalk.green('http://' + ip + ':' + webpackConfig.devServer.port));
+// });
 
 module.exports = webpackConfig;
 

@@ -37,6 +37,6 @@ module.exports = {
     poll: config.poll,
   },
   before: (app) => {
-    app.use('/' + config.assetsSubDirectory, express.static(utils.fullPath(config.assetsSubDirectory)))
+    app.use('/' + config.assetsSubDirectory, express.static(utils.fullPath('static')))
   }
 };
