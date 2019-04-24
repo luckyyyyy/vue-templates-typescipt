@@ -24,7 +24,7 @@ module.exports = {
   contentBase: false, // since we use CopyWebpackPlugin.
   compress: true,
   host: HOST || config.host,
-  port: PORT || config.port,
+  // port: PORT || config.port,
   open: config.autoOpenBrowser,
   useLocalIp: true,
   overlay: config.errorOverlay
