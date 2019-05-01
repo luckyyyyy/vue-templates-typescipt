@@ -223,7 +223,7 @@ module.exports = {
     'vue/valid-v-once': 'error',
     'vue/valid-v-pre': 'error',
     'vue/valid-v-show': 'error',
-    'vue/valid-v-slot': 'error',
+    // 'vue/valid-v-slot': 'error',
     'vue/valid-v-text': 'error',
   }
 }

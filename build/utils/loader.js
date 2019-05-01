@@ -38,8 +38,16 @@ const styleLoaders = (extract) => {
     const a = use;
     return a[1] = { loader: 'css-loader', options: cssModules };
   }
+  const devLoader = extract ? {
+    loader: MiniCssExtractPlugin.loader,
+    options: {
+      // only enable hot in development
+      hmr: utils.isDevelop,
+      // if hmr does not work, this is a forceful method.
+      // reloadAll: true,
+    },
+  } : 'vue-style-loader';
   const cssModulesRules = ['css', 'scss', 'styl', 'stylus'].map((extension) => {
-    const devLoader = extract ? MiniCssExtractPlugin.loader : 'vue-style-loader';
     let rule = {
       test: new RegExp(`\\.module.${extension}$`),
       use: [
@@ -55,7 +63,6 @@ const styleLoaders = (extract) => {
     return rule;
   });
   const cssRules = ['css', 'scss', 'styl', 'stylus'].map((extension) => {
-    const devLoader = extract ? MiniCssExtractPlugin.loader : 'vue-style-loader';
     let rule = {
       test: new RegExp(`\\.${extension}$`),
       exclude: new RegExp(`\\.module.${extension}$`),

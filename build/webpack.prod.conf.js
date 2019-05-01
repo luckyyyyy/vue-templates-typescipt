@@ -7,7 +7,6 @@
 
 const merge = require('webpack-merge');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const MinifyPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
@@ -24,10 +23,6 @@ const webpackConfig = merge(webpackBaseConfig, {
   plugins: [
     new BundleAnalyzerPlugin({
       analyzerMode: 'static',
-    }),
-    // extract css into its own file
-    new MiniCssExtractPlugin({
-      filename: utils.assetsPath('css/[name].[chunkhash].css'),
     }),
     // copy custom static assets
     new CopyWebpackPlugin([
