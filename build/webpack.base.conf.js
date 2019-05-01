@@ -10,7 +10,6 @@ const WebpackBar = require('webpackbar');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const StylelintBarePlugin = require('stylelint-bare-webpack-plugin');
 const FilterWarningsPlugin = require('webpack-filter-warnings-plugin'); // 连这种东西都需要一个插件 SX
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const utils = require('./utils');
 const loader = require('./utils/loader');
@@ -55,7 +54,7 @@ const webpackConfig = {
   },
   module: {
     rules: [
-      ...loader.styleLoaders(),
+      ...loader.styleLoaders(true),
       ...loader.vueLoaders(),
       ...loader.scriptLoaders(),
       {
@@ -98,10 +97,6 @@ const webpackConfig = {
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
     new VueLoaderPlugin(),
     new WebpackBar(),
-    // extract css into its own file
-    new MiniCssExtractPlugin({
-      filename: utils.assetsPath('css/[name].[chunkhash].css'),
-    }),
     new webpack.ContextReplacementPlugin(
       /moment[\\/]locale$/,
       /^\.\/(zh-cn)$/,

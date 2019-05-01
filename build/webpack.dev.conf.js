@@ -8,6 +8,7 @@ const merge = require('webpack-merge');
 const webpack = require('webpack');
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 const chalk = require('chalk');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const devServer = require('./config/devServer');
 const utils = require('./utils');
 const webpackBaseConfig = require('./webpack.base.conf');
@@ -26,6 +27,10 @@ const webpackConfig = merge(webpackBaseConfig, {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(), // HMR shows correct file names in console on update.
     new FriendlyErrorsPlugin(),
+    // extract css into its own file
+    new MiniCssExtractPlugin({
+      filename: utils.assetsPath('css/[name].css'),
+    }),
   ],
 });
 
