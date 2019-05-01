@@ -17,7 +17,6 @@ const config = require('./config');
 const splitChunks = require('./config/splitChunks');
 const ts = require('typescript');
 console.log('TypeScript Version: ' + ts.version );
-
 const webpackConfig = {
   entry: {
     app: './src/main.ts',
@@ -30,7 +29,7 @@ const webpackConfig = {
   output: {
     path: config.assetsRoot,
     publicPath: config.assetsPublicPath,
-    chunkFilename: utils.assetsPath('js/[id].[chunkhash].js'),
+    chunkFilename: utils.assetsPath('js/[name].[chunkhash].js'),
   },
   optimization: {
     runtimeChunk: {

@@ -16,7 +16,7 @@ const webpackBaseConfig = require('./webpack.base.conf');
 const webpackConfig = merge(webpackBaseConfig, {
   mode: 'development',
   output: {
-    filename: utils.assetsPath('js/[name].[hash].js'),
+    chunkFilename: utils.assetsPath('js/[name].js'),
   },
   // https://webpack.js.org/configuration/dev-server/
   devServer,

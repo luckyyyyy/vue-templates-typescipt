@@ -17,9 +17,6 @@ const webpackBaseConfig = require('./webpack.base.conf');
 
 const webpackConfig = merge(webpackBaseConfig, {
   mode: 'production',
-  output: {
-    filename: utils.assetsPath('js/[name].[chunkhash].js'),
-  },
   devtool: false,
   plugins: [
     new BundleAnalyzerPlugin({
