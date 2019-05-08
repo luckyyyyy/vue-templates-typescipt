@@ -13,10 +13,11 @@ const rimraf = require('rimraf');
 const semver = require('semver');
 const childProcess = require('child_process');
 const packageConfig = require('../../package.json');
+const config = require('../config');
 
 const rm = p => new Promise((resolve, reject) => { rimraf(p, e => (e ? reject(e) : resolve())); });
 const fullPath = s => path.join(__dirname, '..', '..', s);
-const assetsPath = s => path.posix.join('static', s || '');
+const assetsPath = s => path.posix.join(config.assetsSubDirectory, s || '');
 const regexEscape = s => s.replace(/[[\]{}()*+!<=:?.\\^$|#\s,]/g, '\\$&');
 const isDevelop = process.env.NODE_ENV === 'development';
 

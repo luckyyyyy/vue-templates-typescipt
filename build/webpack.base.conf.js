@@ -41,7 +41,7 @@ const webpackConfig = {
     splitChunks,
   },
   resolve: {
-    extensions: ['.js', 'jsx', '.ts', '.tsx', '.vue', '.json'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue', '.json'],
     alias: {
       vue$: 'vue/dist/vue.esm.js',
       '@': utils.fullPath('src'),
