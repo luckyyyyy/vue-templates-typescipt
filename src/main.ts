@@ -11,8 +11,8 @@ import App from '@/App.vue';
 import router from '@/router';
 import store from '@/store';
 import 'normalize.css';
-import '@babel/polyfill';
 import '@/styles/index.scss';
+
 
 sync(store, router);
 new Vue({

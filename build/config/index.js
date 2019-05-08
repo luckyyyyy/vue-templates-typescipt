@@ -16,7 +16,7 @@ module.exports = {
     ROUTER_MODE: process.env.ROUTER_MODE,
     // PUBLIC_PATH: process.env.PUBLIC_PATH,
     PUBLIC_PATH: '/',
-    BUILD_TIME: moment().format('YMMDDHHmm'),
+    BUILD_TIME: isDevelop ? 'development' : moment().format('YMMDDHHmm'),
   },
   host: '0.0.0.0',
   // port: 8080,

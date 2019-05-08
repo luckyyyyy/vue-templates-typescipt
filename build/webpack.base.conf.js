@@ -29,6 +29,7 @@ const webpackConfig = {
   output: {
     path: config.assetsRoot,
     publicPath: config.assetsPublicPath,
+    filename: utils.assetsPath('js/[name].[chunkhash].js'),
     chunkFilename: utils.assetsPath('js/[name].[chunkhash].js'),
   },
   optimization: {
