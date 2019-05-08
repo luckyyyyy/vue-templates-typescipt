@@ -28,8 +28,8 @@ const webpackConfig = merge(webpackBaseConfig, {
     // copy custom static assets
     new CopyWebpackPlugin([
       {
-        from: utils.fullPath(config.assetsSubDirectory),
-        to: config.assetsSubDirectory,
+        from: utils.fullPath('static'),
+        to: config.assetsRoot,
         ignore: ['.*'],
       },
     ]),
