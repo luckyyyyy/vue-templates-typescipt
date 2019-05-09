@@ -72,8 +72,9 @@ module.exports = {
     // don't require .vue extension when importing
     'import/extensions': ['error', 'always', {
       'js': 'never',
+      'jsx': 'never',
       'ts': 'never',
-      'tx': 'never',
+      'tsx': 'never',
       'vue': 'never'
     }],
     // 'import/no-cycle': ['error', { maxDepth: 1 }],
