@@ -35,6 +35,13 @@ module.exports = {
       test: /[\\/]src[\\/](store)[\\/]/,
       chunks: 'initial',
     },
+    vendor: {
+      filename: utils.assetsPath('js/vendor.[hash:24].js'),
+      name: 'vendor',
+      test: /node_modules/,
+      chunks: 'initial',
+      priority: -10,
+    },
     default: {
       minChunks: 2,
       priority: -20,
