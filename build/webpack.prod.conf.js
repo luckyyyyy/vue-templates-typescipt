@@ -23,7 +23,7 @@ const webpackConfig = merge(webpackBaseConfig, {
       analyzerMode: 'static',
     }),
     new MiniCssExtractPlugin({
-      filename: utils.assetsPath('css/[name].[chunkhash].css'),
+      filename: utils.assetsPath('css/[name].[contenthash].css'),
     }),
     // copy custom static assets
     new CopyWebpackPlugin([

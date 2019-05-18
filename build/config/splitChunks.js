@@ -24,19 +24,19 @@ module.exports = {
       chunks: 'initial',
     },
     route: {
-      filename: utils.assetsPath('js/route.[hash:24].js'),
+      filename: utils.assetsPath('js/route.[chunkhash:24].js'),
       name: 'route',
       test: /[\\/]src[\\/](router)[\\/]/,
       chunks: 'initial',
     },
     store: {
-      filename: utils.assetsPath('js/store.[hash:24].js'),
+      filename: utils.assetsPath('js/store.[chunkhash:24].js'),
       name: 'store',
       test: /[\\/]src[\\/](store)[\\/]/,
       chunks: 'initial',
     },
     vendor: {
-      filename: utils.assetsPath('js/vendor.[hash:24].js'),
+      filename: utils.assetsPath('js/vendor.[chunkhash:24].js'),
       name: 'vendor',
       test: /node_modules/,
       chunks: 'initial',
