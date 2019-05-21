@@ -5,6 +5,7 @@
  * @copyright: Copyright (c) 2019 Hangzhou perfma Network Technology Co., Ltd.
  */
 
+const webpack = require('webpack');
 const merge = require('webpack-merge');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MinifyPlugin = require('terser-webpack-plugin');
@@ -15,12 +16,29 @@ const utils = require('./utils');
 const config = require('./config');
 const webpackBaseConfig = require('./webpack.base.conf');
 
+const seen = new Set();
+const nameLength = 4;
+
 const webpackConfig = merge(webpackBaseConfig, {
   mode: 'production',
   devtool: false,
   plugins: [
-    new BundleAnalyzerPlugin({
-      analyzerMode: 'static',
+    // https://github.com/vuejs/vue-cli/issues/1916#issuecomment-407693467
+    // https://segmentfault.com/a/1190000015919928#articleHeader10
+    new webpack.NamedChunksPlugin((chunk) => {
+      if (chunk.name) {
+        return chunk.name;
+      }
+      const modules = Array.from(chunk.modulesIterable);
+      if (modules.length > 1) {
+        const hash = require('hash-sum');
+        const joinedHash = hash(modules.map(m => m.id).join('_'));
+        let len = nameLength;
+        while (seen.has(joinedHash.substr(0, len))) len++;
+        seen.add(joinedHash.substr(0, len));
+        return `chunk-${joinedHash.substr(0, len)}`;
+      }
+      return modules[0].id;
     }),
     new MiniCssExtractPlugin({
       filename: utils.assetsPath('css/[name].[contenthash].css'),
@@ -33,6 +51,9 @@ const webpackConfig = merge(webpackBaseConfig, {
         ignore: ['.*'],
       },
     ]),
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'static',
+    }),
   ],
 });
 

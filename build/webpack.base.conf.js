@@ -15,10 +15,10 @@ const utils = require('./utils');
 const loader = require('./utils/loader');
 const config = require('./config');
 const splitChunks = require('./config/splitChunks');
+
 const ts = require('typescript');
 console.log('TypeScript Version: ' + ts.version );
-const seen = new Set();
-const nameLength = 4;
+
 const webpackConfig = {
   entry: {
     app: './src/main.ts',
@@ -111,23 +111,6 @@ const webpackConfig = {
         });
         return env;
       })(),
-    }),
-    // https://github.com/vuejs/vue-cli/issues/1916#issuecomment-407693467
-    // https://segmentfault.com/a/1190000015919928#articleHeader10
-    new webpack.NamedChunksPlugin(chunk => {
-      if (chunk.name) {
-        return chunk.name;
-      }
-      const modules = Array.from(chunk.modulesIterable);
-      if (modules.length > 1) {
-        const hash = require('hash-sum');
-        const joinedHash = hash(modules.map(m => m.id).join('_'));
-        let len = nameLength;
-        while (seen.has(joinedHash.substr(0, len))) len++;
-        seen.add(joinedHash.substr(0, len));
-        return `chunk-${joinedHash.substr(0, len)}`;
-      }
-      return modules[0].id;
     }),
     new webpack.HashedModuleIdsPlugin(),
     // generate dist index.html with correct asset hash for caching.
