@@ -5,10 +5,10 @@
  * @copyright: Copyright (c) 2019 Hangzhou perfma Network Technology Co., Ltd.
  */
 import { Component, Vue } from 'vue-property-decorator';
-import Hello from '@/hello';
+import Hello from '@/components/Hello';
 
 @Component
-export default class App extends Vue {
+export default class Index extends Vue {
   private msg: string = 'hello world vue in typescript';
   public render() {
     return (
