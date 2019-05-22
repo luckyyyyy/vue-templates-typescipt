@@ -40,9 +40,10 @@
     "baseUrl": ".",
     // 指定特殊模块的路径
     "paths": {
-      "@/*": [
-        "src/*",
-      ],
+    //   "jquery": [
+    //     "node_modules/jquery/dist/jquery"
+    //   ]
+      "@/*": ["src/*"],
     },
     // 编译过程中需要引入的库文件的列表
     // "lib": [
@@ -51,14 +52,16 @@
     //   "es2015.promise"
     // ]
     // 让typescript支持JSX
-    "jsx": "preserve",
+    "jsx": "preserve"
   },
   "include": [
+    "node_modules/@types",
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "dist"
   ],
 }

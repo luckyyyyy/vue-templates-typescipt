@@ -10,7 +10,7 @@ export default [
     name: 'index',
     path: '/',
     meta: { parent: 'index', nav: 'index' },
-    component: () => import('@/views/index.vue'),
+    component: () => import('@/views/index'),
   },
   {
     name: '404',
