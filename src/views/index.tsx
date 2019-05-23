@@ -13,7 +13,7 @@ export default class Index extends Vue {
   public render() {
     return (
       <div class="view">
-        <Hello msg={this.msg} />
+        <Hello  msg={this.msg} />
         <button onClick={this.onClick}> switch text </button>
       </div>
     );

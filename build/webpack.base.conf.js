@@ -20,9 +20,7 @@ const ts = require('typescript');
 console.log('TypeScript Version: ' + ts.version );
 
 const webpackConfig = {
-  entry: {
-    app: './src/main.ts',
-  },
+  entry: config.entry,
   stats: {
     // https://webpack.js.org/configuration/stats/
     entrypoints: false,
@@ -145,22 +143,23 @@ if (config.useEslint) {
 }
 
 if (config.useStyleLint) {
-    // new StylelintBarePlugin({
-    //   configFile: '.stylelintrc.js',
-    //   files: [
-    //     'src/**/*.vue',
-    //     'src/**/*.css',
-    //     'src/**/*.less',
-    //     'src/**/*.sass',
-    //     'src/**/*.scss',
-    //     '!**/iconfont.css',
-    //   ],
-    //   // fix: true,
-    //   cache: true,
-    //   cacheLocation: './node_modules/.cache/.stylelintcache',
-    //   emitErrors: true,
-    //   failOnError: true,
-    // }),
+  new StylelintBarePlugin({
+    configFile: '.stylelintrc.js',
+    files: [
+      'src/**/*.vue',
+      'src/**/*.css',
+      'src/**/*.less',
+      'src/**/*.sass',
+      'src/**/*.scss',
+      '!**/iconfont.css',
+    ],
+    fix: true,
+    cache: true,
+    cacheLocation: './node_modules/.cache/.stylelintcache',
+    // emitErrors: true,
+    emitWarning: true,
+    failOnError: false,
+  });
 }
 
 module.exports = webpackConfig;

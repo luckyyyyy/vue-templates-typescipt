@@ -51,9 +51,6 @@ const webpackConfig = merge(webpackBaseConfig, {
         ignore: ['.*'],
       },
     ]),
-    new BundleAnalyzerPlugin({
-      analyzerMode: 'static',
-    }),
   ],
 });
 
@@ -69,5 +66,11 @@ webpackConfig.optimization.minimizer = [
     parallel: true,
   }),
 ];
+
+if (config.bundleAnalyzerReport) {
+  new BundleAnalyzerPlugin({
+    analyzerMode: 'static',
+  });
+}
 
 module.exports = webpackConfig;

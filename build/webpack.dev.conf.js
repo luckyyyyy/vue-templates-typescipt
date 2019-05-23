@@ -16,6 +16,7 @@ const webpackBaseConfig = require('./webpack.base.conf');
 const webpackConfig = merge(webpackBaseConfig, {
   mode: 'development',
   output: {
+    publicPath: '/',
     filename: utils.assetsPath('js/[name].js'),
     chunkFilename: utils.assetsPath('js/[name].js'),
   },

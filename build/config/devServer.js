@@ -11,13 +11,13 @@ const config = require('./index.js');
 const utils = require('../utils');
 
 const HOST = process.env.HOST;
-const PORT = process.env.PORT && Number(process.env.PORT);
+// const PORT = process.env.PORT && Number(process.env.PORT);
 
 module.exports = {
   clientLogLevel: 'warning',
   historyApiFallback: {
     rewrites: [
-      { from: /.*/, to: path.posix.join(config.assetsPublicPath, 'index.html') },
+      { from: /.*/, to: path.posix.join('/', 'index.html') },
     ],
   },
   hot: true,
@@ -30,8 +30,8 @@ module.exports = {
   overlay: config.errorOverlay
     ? { warnings: false, errors: true }
     : false,
-  publicPath: config.assetsPublicPath,
-  proxy: {},
+  publicPath: '/',
+  proxy: config.proxy || {},
   quiet: true,
   watchOptions: {
     poll: config.poll,
