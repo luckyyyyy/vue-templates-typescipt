@@ -8,7 +8,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import topRoute from '@/router/top';
-
 // Module Route
 Vue.use(VueRouter);
 const routes = Array.prototype.concat(

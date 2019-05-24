@@ -13,7 +13,6 @@ import store from '@/store';
 import 'normalize.css';
 import '@/styles/index.scss';
 
-
 sync(store, router);
 new Vue({
   el: '#app',
