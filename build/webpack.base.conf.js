@@ -112,6 +112,15 @@ const webpackConfig = {
     // you can customize output by editing /index.html
     // see https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
+      chunksSortMode: (a, b) => {
+        if (a.entry !== b.entry) {
+          // make sure entry is loaded last so user CSS can override
+          // vendor CSS
+          return b.entry ? -1 : 1
+        } else {
+          return 0
+        }
+      },
       filename: config.index,
       template: utils.fullPath('index.html'),
       inject: true,
