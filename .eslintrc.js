@@ -2,11 +2,11 @@
 module.exports = {
   root: true,
   parser: 'vue-eslint-parser',
-  parserOptions: {
-    parser: '@typescript-eslint/parser',
-    jsx: true,
-    useJSXTextNode: false,
-  },
+  // parserOptions: {
+  //   parser: '@typescript-eslint/parser',
+  //   jsx: true,
+  //   useJSXTextNode: false,
+  // },
   env: {
     browser: true,
   },
