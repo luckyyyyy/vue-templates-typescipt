@@ -19,6 +19,32 @@ const splitChunks = require('./config/splitChunks');
 const ts = require('typescript');
 console.log('TypeScript Version: ' + ts.version );
 
+// HTML plugin
+// #1669 html-webpack-plugin's default sort uses toposort which cannot
+// handle cyclic deps in certain cases. Monkey patch it to handle the case
+// before we can upgrade to its 4.0 version (incompatible with preload atm)
+const chunkSorters = require('html-webpack-plugin/lib/chunksorter');
+const depSort = chunkSorters.dependency;
+chunkSorters.auto = chunkSorters.dependency = (chunks, ...args) => {
+  try {
+    return depSort(chunks, ...args)
+  } catch (e) {
+    // fallback to a manual sort if that happens...
+    return chunks.sort((a, b) => {
+      // make sure user entry is loaded last so user CSS can override
+      // vendor CSS
+      if (a.id === 'app') {
+        return 1
+      } else if (b.id === 'app') {
+        return -1
+      } else if (a.entry !== b.entry) {
+        return b.entry ? -1 : 1
+      }
+      return 0
+    })
+  }
+}
+
 const webpackConfig = {
   entry: config.entry,
   stats: {
@@ -112,15 +138,6 @@ const webpackConfig = {
     // you can customize output by editing /index.html
     // see https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
-      chunksSortMode: (a, b) => {
-        if (a.entry !== b.entry) {
-          // make sure entry is loaded last so user CSS can override
-          // vendor CSS
-          return b.entry ? -1 : 1
-        } else {
-          return 0
-        }
-      },
       filename: config.index,
       template: utils.fullPath('index.html'),
       inject: true,
