@@ -52,4 +52,10 @@
   "path-autocomplete.pathMappings": {
     "@": "${folder}/src", // the absolute root folder is now /src,
   },
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    { "language": "vue", "autoFix": true }
+  ],
+  "eslint.options": { "configFile": ".eslintrc.js" }
 }

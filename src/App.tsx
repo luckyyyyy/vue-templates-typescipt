@@ -4,12 +4,13 @@
  * @author   : William Chan (wei.chen@perfma.com)
  * @copyright: Copyright (c) 2019 Hangzhou perfma Network Technology Co., Ltd.
  */
+import { VNode } from 'vue';
 import { Component, Vue } from 'vue-property-decorator';
 import style from '@/styles/app.module.scss'; // css module
 
 @Component
 export default class App extends Vue {
-  render() {
+  public render(): VNode {
     return (
       <div class={style.app}>
         <router-view></router-view>

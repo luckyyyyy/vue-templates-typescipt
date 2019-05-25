@@ -33,7 +33,7 @@ const defaultConfig = {
   assetsRoot: fullPath('dist'),
   assetsSubDirectory: 'static',
   assetsPublicPath: '/', // 发布时的域名 可以编写CDN域名等
-  useEslint: false,
+  useEslint: true,
   useStyleLint: false,
   // Run the build command with an extra argument to
   // View the bundle analyzer report after build finishes:

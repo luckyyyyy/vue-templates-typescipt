@@ -165,7 +165,7 @@ const scriptLoaders = () => {
 
 
 const eslintLoaders = options => [{
-  test: /\.(js|vue)$/,
+  test: /\.(js|vue|ts|jsx|tsx)$/,
   loader: 'eslint-loader',
   enforce: 'pre',
   include: [utils.fullPath('src'), utils.fullPath('test')],

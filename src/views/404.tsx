@@ -26,9 +26,7 @@ export default Vue.extend({
     const b = [1, 2, 3];
     return (
       <div onClick={this.test} class="a404">
-        { b.map((item) => {
-          return <br />
-        }) }
+        { b.map(item => <br />) }
         <center>页面不存在</center>
         <br />
         <br />

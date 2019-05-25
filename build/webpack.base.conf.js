@@ -129,9 +129,10 @@ const webpackConfig = {
 };
 
 if (config.useEslint) {
+  console.log(123)
   webpackConfig.module.rules.push(
     ...loader.eslintLoaders({
-      cache: true,
+      cache: false,
       emitWarning: true,
       failOnError: false,
     }),

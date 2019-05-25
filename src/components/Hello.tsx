@@ -8,13 +8,13 @@ import VueComponent from '@/components/vue-component';
 import { Component, Vue, Prop } from 'vue-property-decorator';
 
 export interface HelloProps {
-  msg?: string
+  msg?: string;
 }
 
 @Component
 // export default class Hello extends VueComponent<HelloProps> {
 export default class Hello extends Vue<HelloProps> {
-  @Prop(String) readonly msg!: string
+  @Prop(String) readonly msg!: string;
   render() {
     return (
       <div class="msg">{ this.msg }</div>

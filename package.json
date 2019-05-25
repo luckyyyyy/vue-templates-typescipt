@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --config build/webpack.dev.conf.js",
     "build": "rimraf dist && cross-env NODE_ENV=production webpack --config build/webpack.prod.conf --hide-modules",
-    "lint": "eslint --ext .js,.vue --cache --cache-location node_modules/.cache/.eslintcache src",
+    "lint": "eslint --ext .js,.vue,.ts --cache --cache-location node_modules/.cache/.eslintcache src",
     "lint:style": "stylelint src/**/*.{less,vue} --fix"
   },
   "engines": {
@@ -34,10 +34,11 @@
     "@babel/preset-env": "^7.4.4",
     "@babel/preset-typescript": "^7.3.3",
     "@babel/register": "^7.4.4",
+    "@typescript-eslint/eslint-plugin": "^1.9.0",
+    "@typescript-eslint/parser": "^1.9.0",
     "@vue/babel-helper-vue-jsx-merge-props": "^1.0.0-beta.3",
     "@vue/babel-preset-jsx": "^1.0.0-beta.3",
     "autoprefixer": "^9.1.0",
-    "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.5",
     "cache-loader": "^2.0.1",
     "chalk": "^2.4.1",
@@ -85,6 +86,7 @@
     "ts-loader": "^5.3.3",
     "typescript": "^3.2.2",
     "url-loader": "^1.1.2",
+    "vue-eslint-parser": "^6.0.4",
     "vue-loader": "^15.7.0",
     "vue-style-loader": "^4.1.2",
     "vue-template-compiler": "^2.6.10",
