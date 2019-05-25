@@ -14,21 +14,36 @@
  * 支持 PostCSS 和 SCSS。
  * 支持 ESLint 和 StyleLint，默认关闭。
 
-## How to use
+## About
 
-First, clone the repo.
+由于需要了解整个Vue的生态，所以脚手架会定期更新，有好的建议欢迎PR，目前在我内部项目中广泛使用。
+尽可能保证代码的干净和易读，对于希望了解生态的同学来说，还是有帮助的。
 
-```bash
+## 代码风格
 
-git clone https://github.com/luckyyyyy/vue-templates-typescipt.git <yourAppName>
-cd <yourAppName>
+```typescript
+/**
+ * This file is part of the PerfMa.
+ * @link     : http://perfma.com
+ * @author   : William Chan (wei.chen@perfma.com)
+ * @copyright: Copyright (c) 2019 Hangzhou perfma Network Technology Co., Ltd.
+ */
+import { Component, Vue } from 'vue-property-decorator';
+import Hello from '@/components/Hello';
 
-# Second, delete the old .git history and initialize new history.
-rm -rf .git
-git init
-
-# If you are in China, please modify the npm registry
-npm config set registry https://registry.npm.taobao.org
-
-# Third, install the dependencies.
-npm install
+@Component
+export default class Index extends Vue {
+  private msg: string = 'hello world vue in typescript';
+  public render() {
+    return (
+      <div class="view">
+        <Hello  msg={this.msg} />
+        <button onClick={this.onClick}> switch text </button>
+      </div>
+    );
+  }
+  private onClick() {
+    this.msg = 'switch text done !!!';
+  }
+}
+```

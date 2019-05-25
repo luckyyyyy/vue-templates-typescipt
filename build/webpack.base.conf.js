@@ -47,10 +47,7 @@ const webpackConfig = {
       '@': utils.fullPath('src'),
       ':': utils.fullPath('static'),
     },
-    modules: [
-      utils.fullPath('src'),
-      utils.fullPath('node_modules'),
-    ],
+    modules: ['node_modules'],
   },
   module: {
     rules: [
@@ -115,9 +112,8 @@ const webpackConfig = {
     // you can customize output by editing /index.html
     // see https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
-      chunksSortMode: 'none',
-      filename: 'index.html',
-      template: './index.html',
+      filename: config.index,
+      template: utils.fullPath('index.html'),
       inject: true,
       // favicon: utils.fullPath('src/assets/favicon.ico'),
     }),

@@ -13,11 +13,12 @@ const utils = require('../utils');
 const HOST = process.env.HOST;
 // const PORT = process.env.PORT && Number(process.env.PORT);
 
-module.exports = {
+const devServer = {
   clientLogLevel: 'warning',
   historyApiFallback: {
+    disableDotRule: true,
     rewrites: [
-      { from: /.*/, to: path.posix.join('/', 'index.html') },
+      { from: /./, to: path.posix.join('/', config.index) },
     ],
   },
   hot: true,
@@ -40,3 +41,8 @@ module.exports = {
     app.use('/', express.static(utils.fullPath('static')))
   }
 };
+if (config.watchNodeModules) {
+  devServer.watchOptions.ignored = [];
+}
+
+module.exports = devServer;

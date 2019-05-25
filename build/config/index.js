@@ -20,7 +20,7 @@ const defaultConfig = {
   env: {
     NODE_ENV: process.env.NODE_ENV,
     ROUTER_MODE: process.env.ROUTER_MODE,
-    PUBLIC_PATH: '/',
+    // PUBLIC_PATH: '/',
     BUILD_TIME: isDevelop ? 'development' : moment().format('YMMDDHHmm'),
   },
   proxy: {}, // https://webpack.js.org/configuration/dev-server/#devserverproxy
@@ -29,6 +29,7 @@ const defaultConfig = {
   autoOpenBrowser: true,
   errorOverlay: true,
   poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
+  index: 'index.html',
   assetsRoot: fullPath('dist'),
   assetsSubDirectory: 'static',
   assetsPublicPath: '/', // 发布时的域名 可以编写CDN域名等
@@ -45,6 +46,8 @@ const defaultConfig = {
   // In our experience, they generally work as expected,
   // just be aware of this issue when enabling this option.
   sourceMap: isDevelop,
+  // watch all node_modules
+  watchNodeModules: argv.watch,
 };
 
 module.exports = Object.assign(defaultConfig, config);

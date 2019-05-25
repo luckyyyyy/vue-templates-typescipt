@@ -9,6 +9,17 @@ const utils = require('../utils');
 module.exports = {
   // chunks: 'initial', // initial all async
   cacheGroups: {
+    vendor: {
+      filename: utils.assetsPath('js/vendor.[chunkhash:24].js'),
+      name: 'vendor',
+      test: /node_modules/,
+      // test: m => {
+      //   console.log(m)
+      //   return m.constructor.name !== 'CssModule';
+      // },
+      chunks: 'initial',
+      priority: -10,
+    },
     styles: {
       test: m => m.constructor.name === 'CssModule',
       name: 'commons',
@@ -34,13 +45,6 @@ module.exports = {
       name: 'store',
       test: /[\\/]src[\\/](store)[\\/]/,
       chunks: 'initial',
-    },
-    vendor: {
-      filename: utils.assetsPath('js/vendor.[chunkhash:24].js'),
-      name: 'vendor',
-      test: /node_modules/,
-      chunks: 'initial',
-      priority: -10,
     },
     default: {
       minChunks: 2,
