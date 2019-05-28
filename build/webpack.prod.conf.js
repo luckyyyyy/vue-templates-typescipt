@@ -62,7 +62,7 @@ webpackConfig.optimization.minimizer = [
     },
   }),
   new MinifyPlugin({
-    cache: false,
+    cache: true,
     parallel: true,
   }),
 ];
