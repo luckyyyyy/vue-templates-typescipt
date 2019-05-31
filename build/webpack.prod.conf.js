@@ -68,9 +68,11 @@ webpackConfig.optimization.minimizer = [
 ];
 
 if (config.bundleAnalyzerReport) {
-  new BundleAnalyzerPlugin({
-    analyzerMode: 'static',
-  });
+  webpackConfig.plugins.push(
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'static',
+    }),
+  );
 }
 
 module.exports = webpackConfig;
