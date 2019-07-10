@@ -52,10 +52,15 @@
   "path-autocomplete.pathMappings": {
     "@": "${folder}/src", // the absolute root folder is now /src,
   },
+  "eslint.autoFixOnSave": true,
   "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    { "language": "vue", "autoFix": true }
+      { "language": "typescript", "autoFix": true },
+      "javascript",
+      "javascriptreact",
+      { "language": "vue", "autoFix": true }
   ],
-  "eslint.options": { "configFile": ".eslintrc.js" }
+  "eslint.options": {
+    "configFile": ".eslintrc.js",
+  },
+  "stylelint.enable": false // 还没有自动修复功能 先禁了
 }

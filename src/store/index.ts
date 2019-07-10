@@ -8,20 +8,15 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import { isDevelop } from '@/utils';
-// globle and common
-// import * as getters   from './getters'
-// import * as actions   from './actions'
-// import * as mutations from '@/store/mutations';
+import commonModule, { CommonState } from './modules/common';
 
 Vue.use(Vuex);
-const store = new Vuex.Store({
+
+export default new Vuex.Store<{
+  common: CommonState;
+}>({
   strict: isDevelop,
-  // state,
-  // getters,
-  // actions,
-  // mutations,
+  modules: {
+    common: commonModule,
+  },
 });
-
-// store.registerModule('common', commonModule);
-
-export default store;
