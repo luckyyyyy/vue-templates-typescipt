@@ -19,6 +19,7 @@
     "core-js": "3",
     "lodash": "^4.17.10",
     "normalize.css": "^8.0.0",
+    "reflect-metadata": "^0.1.13",
     "regenerator-runtime": "^0.13.2",
     "vue": "^2.6.10",
     "vue-class-component": "^7.1.0",

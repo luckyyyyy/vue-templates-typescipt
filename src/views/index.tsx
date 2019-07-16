@@ -25,7 +25,7 @@ export default class Index extends Vue {
     return (
       <div class="view">
         <h1>{ this.text }</h1>
-        <Hello msg={this.msg} />
+        <Hello msg={this.msg} bug />
         <button onClick={this.onClick}> switch text </button>
       </div>
     );

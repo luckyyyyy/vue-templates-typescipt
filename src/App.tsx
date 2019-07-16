@@ -10,6 +10,7 @@ import style from '@/styles/app.module.scss'; // css module
 
 @Component
 export default class App extends Vue {
+  // eslint-disable-next-line class-methods-use-this
   public render(): VNode {
     return (
       <div class={style.app}>

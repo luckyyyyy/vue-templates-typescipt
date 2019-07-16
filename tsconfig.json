@@ -1,6 +1,7 @@
 {
   // 编译选项
   "compilerOptions": {
+    "strictPropertyInitialization": false,
     // 输出目录
     // "outDir": "./output",
     // 是否包含可以用于 debug 的 sourceMap

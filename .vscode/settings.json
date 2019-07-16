@@ -54,10 +54,11 @@
   },
   "eslint.autoFixOnSave": true,
   "eslint.validate": [
-      { "language": "typescript", "autoFix": true },
-      "javascript",
-      "javascriptreact",
-      { "language": "vue", "autoFix": true }
+    { "language": "typescript", "autoFix": true },
+    { "language": "typescriptreact", "autoFix": true },
+    { "language": "javascript", "autoFix": true },
+    { "language": "javascriptreact", "autoFix": true },
+    { "language": "vue", "autoFix": true }
   ],
   "eslint.options": {
     "configFile": ".eslintrc.js",

@@ -5,6 +5,7 @@
  * @copyright: Copyright (c) 2019 Hangzhou perfma Network Technology Co., Ltd.
  */
 
+import 'reflect-metadata';
 import Vue from 'vue';
 import { sync } from 'vuex-router-sync';
 import App from '@/App';
@@ -14,6 +15,7 @@ import 'normalize.css';
 import '@/styles/index.scss';
 
 sync(store, router);
+// eslint-disable-next-line no-new
 new Vue({
   el: '#app',
   router,
